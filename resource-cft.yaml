@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Resources for Python demo app
+
+Resources:
+  KDSStream:
+    Type: "AWS::Kinesis::Stream"
+    Properties:
+      Name: "smith8ca-kds-001"
+      RetentionPeriodHours: 24
+      ShardCount: 1
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: "ami-0be2609ba883822ec"
+      IamInstanceProfile: "AmazonSSMRoleForInstancesQuickSetup"
+      InstanceType: "t2.micro"
+      KeyName: String
+      SecurityGroupIds:
+        - sg-043d8d522d24b646c
+      UserData:
+        "Fn::Base64": !Sub |
+          #!/bin/bash
+          yum -y update
+
+          cd ~
+          git clone 
+
+Outputs:
+  StreamName:
+    Description: Name of the Kinesis Data Stream
+    Value: !GetAtt
+      - KDSStream
+      - Name
+    Export:
+      Name: !Sub "${AWS::StackName}-StreamName"
