@@ -5,7 +5,7 @@ import json
 import random
 import time
 
-my_stream_name = 'smith8ca-kds-001'
+my_stream_name = 'python-demo-kds'
 kinesis_client = boto3.client('kinesis', region_name='us-east-1')
 
 

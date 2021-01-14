@@ -4,7 +4,7 @@ import boto3
 import json
 import time
 
-my_stream_name = 'smith8ca-kds-001'
+my_stream_name = 'python-demo-kds'
 kinesis_client = boto3.client('kinesis', region_name='us-east-1')
 
 # Get the description of kinesis shard; It is the JSON from which we will get the shard ID
