@@ -2,12 +2,12 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: Resources for Python demo app
 
 Resources:
-  KDSStream:
-    Type: "AWS::Kinesis::Stream"
-    Properties:
-      Name: python-demo-kds
-      RetentionPeriodHours: 24
-      ShardCount: 1
+  # KDSStream:
+  #   Type: "AWS::Kinesis::Stream"
+  #   Properties:
+  #     Name: python-demo-kds
+  #     RetentionPeriodHours: 24
+  #     ShardCount: 1
 
   EC2Instance:
     Type: "AWS::EC2::Instance"
@@ -21,10 +21,11 @@ Resources:
         "Fn::Sub": |
           #!/bin/bash
           yum -y update
-          yum install git -y 
+          yum install git python3 -y 
+          pip3 install codeguru_profiler_agent
           git clone https://github.com/smith8ca/codeguru-python-demo.git /home/ssm-user/codeguru-python-demo
           chmod -R +x /home/ssm-user/codeguru-python-demo
-          chown -R ssm-user:ssm-user /home/ssm-user/codeguru-python-demo
+          chown -R ssm-user:ssm-user /home/ssm-user/*
       Tags:
         - Key: Name
           Value: python-demo
