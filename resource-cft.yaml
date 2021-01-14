@@ -22,10 +22,9 @@ Resources:
           #!/bin/bash
           yum -y update
           yum install git -y 
-          cd /home/ssm-user
-          git clone https://github.com/smith8ca/codeguru-python-demo.git
-          chmod -R +x *
-          chown -R ssm-user:ssm-user *
+          git clone https://github.com/smith8ca/codeguru-python-demo.git /home/ssm-user/codeguru-python-demo
+          chmod -R +x /home/ssm-user/codeguru-python-demo
+          chown -R ssm-user:ssm-user /home/ssm-user/codeguru-python-demo
       Tags:
         - Key: Name
           Value: python-demo
