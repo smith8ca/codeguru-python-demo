@@ -47,7 +47,7 @@ Resources:
           Bucket: codeguru-demo
           Key: codeguru-python-demo.zip
 
-  CodeGuruReopAssociation:
+  CodeGuruRepoAssociation:
     Type: AWS::CodeGuruReviewer::RepositoryAssociation
     Properties:
       Name: Python-Demo
