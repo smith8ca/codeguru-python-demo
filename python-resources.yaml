@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Resources for CodeGuru Python demo
+
+Resources:
+  KDSStream:
+    Type: "AWS::Kinesis::Stream"
+    Properties:
+      Name: python-demo-kds
+      RetentionPeriodHours: 24
+      ShardCount: 1
+
+  EC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: ami-0be2609ba883822ec
+      IamInstanceProfile: AmazonSSMRoleForInstancesQuickSetup
+      InstanceType: t2.micro
+      SecurityGroupIds:
+        - sg-043d8d522d24b646c
+      UserData: !Base64
+        "Fn::Sub": |
+          #!/bin/bash
+
+          # Install packages
+          yum -y update && yum install git python3 -y
+
+          # Install codeguru profiling agent
+          pip3 install codeguru_profiler_agent
+
+          # Clone python demo code
+          git clone https://github.com/smith8ca/codeguru-python-demo.git /home/ssm-user/codeguru-python-demo
+
+          # Update permissions
+          chmod -R +x /home/ssm-user/codeguru-python-demo
+      Tags:
+        - Key: Name
+          Value: python-demo
+
+  MyRepo:
+    Type: AWS::CodeCommit::Repository
+    Properties:
+      RepositoryName: Python-Demo
+      RepositoryDescription: Repository for CodeGuru Python demo
+      Code:
+        BranchName: development
+        S3:
+          Bucket: codeguru-demo
+          Key: codeguru-python-demo.zip
