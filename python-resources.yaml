@@ -36,7 +36,7 @@ Resources:
         - Key: Name
           Value: python-demo
 
-  CodeCommitRepo:
+  CodeCommitRepoitory:
     Type: AWS::CodeCommit::Repository
     Properties:
       RepositoryName: Python-Demo
@@ -46,3 +46,9 @@ Resources:
         S3:
           Bucket: codeguru-demo
           Key: codeguru-python-demo.zip
+
+  MyRepositoryAssociation:
+    Type: AWS::CodeGuruReviewer::RepositoryAssociation
+    Properties:
+      Name: Python-Demo
+      Type: CodeCommit
