@@ -18,6 +18,8 @@ my_shard_iterator = shard_iterator['ShardIterator']
 record_response = kinesis_client.get_records(
     ShardIterator=my_shard_iterator, Limit=2)
 
+#f = open("records.txt", "a")
+
 while 'NextShardIterator' in record_response:
     record_response = kinesis_client.get_records(
         ShardIterator=record_response['NextShardIterator'], Limit=2)
@@ -25,6 +27,9 @@ while 'NextShardIterator' in record_response:
     # If data exists in the "records" field, print the data
     if (record_response['Records']):
         print(record_response['Records'])
+        #f.write(record_response['Records'])
 
     # Wait for 10 seconds
     time.sleep(10)
+
+#f.close()
